@@ -1,0 +1,9 @@
+name: Phantom-Waypoints
+version: 0.1-Snap
+main: com.paralli.phantom_waypoints.Main
+api-version: 1.16
+author: aWildPhantom
+commands:
+  waypoint:
+    description: Access the waypoint menu
+    usages: "/waypoint <optional-either: tp | add> <optional: name>"
