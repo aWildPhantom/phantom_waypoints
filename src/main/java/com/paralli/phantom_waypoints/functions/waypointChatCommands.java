@@ -48,6 +48,7 @@ public class waypointChatCommands implements CommandExecutor {
                         return true;
                     }
 
+
                     //do the actual teleporting
                     List<waypoint> waypointList = Main.globalWaypoints;
                     waypoint search = null;
@@ -60,7 +61,23 @@ public class waypointChatCommands implements CommandExecutor {
                     }
 
                     if(!(search==null)){
+                        Location check = player.getLocation();
+
                         Location loc = new Location(Bukkit.getServer().getWorld(search.world), search.x, search.y, search.z, search.yaw, search.pitch);
+
+                        boolean cleared = false;
+                        for(waypoint w: waypointList){
+                            Location wcheck = new Location(Bukkit.getServer().getWorld(w.name), w.x, w.y, w.z);
+                            if(wcheck.distance(check) < 2){
+                                cleared = true;
+                            }
+                        }
+
+                        if(!cleared){
+                            waypointFunctions.sendMessage(player, "You can't teleport if you are not close to a waypoint!");
+                            return true;
+                        }
+
                         player.playSound(loc, Sound.ENTITY_ENDERMAN_TELEPORT, 3.0F, 0.5F);
                         player.teleport(loc);
                         return true;
