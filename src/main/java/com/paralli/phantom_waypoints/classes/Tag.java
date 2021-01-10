@@ -7,7 +7,7 @@ public class Tag {
     public static TextComponent tag() {
         TextComponent tag = new TextComponent("[");
         TextComponent Name = new TextComponent("Phantom Waypoints");
-        Name.setColor(ChatColor.RED);
+        Name.setColor(ChatColor.BLUE);
         tag.addExtra(Name);
         tag.addExtra("] ");
         return tag;

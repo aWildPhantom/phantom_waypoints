@@ -41,7 +41,7 @@ public class waypointFunctions {
             Link.setColor(ChatColor.GREEN);
             comp.addExtra(Link);
             comp.addExtra("]");
-            comp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/waypoint teleport " + value.name + " CrudeVerificationKek69"));
+            comp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/pwaypoint teleport " + value.name + " CrudeVerificationKek69"));
             message.addExtra(comp);
             message.addExtra(" ");
         }
@@ -79,26 +79,22 @@ public class waypointFunctions {
 
         for(Player_waypoint pw: playerList){
             if(pw.uuid.equals(p.getUniqueId())){
-                Main.console.info("Found our entry!");
                 pwaypoints = pw.waypointList;
             }
         }
 
         //if the waypoint list couldn't be found, return false because we assume no waypoint whatsoever.
         if(pwaypoints == null){
-            Main.console.info("No Player data entry could be found. Assuming they have not discovered.");
             return false;
         }
 
 
         for(waypoint waypoint : pwaypoints){
             if(w.name.equalsIgnoreCase(waypoint.name)){
-                Main.console.info("Found a matching waypoint! Returning True for hasDiscovered.");
                 return true;
             }
         }
 
-        Main.console.info("Huh.. We didnt find anything. Defaulting false.");
         //default return
         return false;
     }

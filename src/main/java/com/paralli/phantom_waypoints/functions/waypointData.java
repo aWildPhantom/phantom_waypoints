@@ -134,7 +134,6 @@ public class waypointData {
 
         for(Player_waypoint gpw : player_waypoints) {
             if(gpw.uuid.equals(p.getUniqueId())){
-                Main.console.info("Found an entry for UUID: "+String.valueOf(p.getUniqueId()));
                 pw = gpw;
                 break;
             }

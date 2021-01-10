@@ -27,14 +27,12 @@ public class waypointChatCommands implements CommandExecutor {
             }
 
             if(args[0].equalsIgnoreCase("teleport")) {
-                Main.console.info("Recieved a Teleport command");
                 if(args.length >= 3){
                     StringBuilder name;
                     name = new StringBuilder();
 
                     //if args is greater than 4, construct a singular string name for the waypoint
                     if(args.length >= 4) {
-                        Main.console.info("Multi name detected! Building name...");
                         for (int i = 1; i < args.length-1; i++) {
                             name.append(args[i]);
                             if(i+1 < args.length-1){
@@ -44,7 +42,6 @@ public class waypointChatCommands implements CommandExecutor {
                     } else {
                         name.append(args[1]);
                     }
-                    Main.console.info("desired waypoint name: "+name);
 
                     if(!(args[args.length-1].equalsIgnoreCase("CrudeVerificationKek69"))){
                         waypointFunctions.sendMessage(player, "Sorry, this command can't be used in chat. Please visit a waypoint.");
@@ -57,14 +54,12 @@ public class waypointChatCommands implements CommandExecutor {
 
                     //first search for the waypoint
                     for(waypoint w: waypointList){
-                        Main.console.info(w.name);
                         if(w.name.equalsIgnoreCase(name.toString())){
                             search = w;
                         }
                     }
 
                     if(!(search==null)){
-                        Main.console.info("Waypoint found! Teleporting!");
                         Location loc = new Location(Bukkit.getServer().getWorld(search.world), search.x, search.y, search.z, search.yaw, search.pitch);
                         player.playSound(loc, Sound.ENTITY_ENDERMAN_TELEPORT, 3.0F, 0.5F);
                         player.teleport(loc);

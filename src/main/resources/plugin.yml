@@ -4,6 +4,6 @@ main: com.paralli.phantom_waypoints.Main
 api-version: 1.16
 author: aWildPhantom
 commands:
-  waypoint:
+  pwaypoint:
     description: Access the waypoint menu
     usages: "/waypoint <optional-either: tp | add> <optional: name>"
