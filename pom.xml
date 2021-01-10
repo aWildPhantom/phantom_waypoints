@@ -6,7 +6,7 @@
 
     <groupId>com.paralli</groupId>
     <artifactId>phantom_waypoints</artifactId>
-    <version>1-Alpha</version>
+    <version>1.01-Alpha</version>
 
     <build>
         <plugins>
