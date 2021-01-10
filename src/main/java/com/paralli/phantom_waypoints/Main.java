@@ -51,9 +51,6 @@ public class Main extends JavaPlugin {
         config = this.getConfig();
         console.info("Presto! Now to go ahead and read our waypoint list... ");
         globalWaypoints = com.paralli.phantom_waypoints.functions.waypointData.readStoredJSON();
-        for (waypoint w : globalWaypoints) {
-            console.info(w.name + w.world + w.x + w.y + w.z);
-        }
         console.info("Okay. Just a few more steps...");
         globalPlayerData = com.paralli.phantom_waypoints.functions.waypointData.readPlayerData();
         console.info("Finishing final prep steps");

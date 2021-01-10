@@ -223,7 +223,7 @@ public class waypointData {
                 }
 
                 try {
-                    FileWriter writer = new FileWriter(Main.pluginPath + File.separator + "playerWaypointData.json");
+                    FileWriter writer = new FileWriter(Main.pluginPath + File.separator + "waypointData.json");
                     writer.write(toWrite);
                     writer.close();
                 } catch (IOException e) {

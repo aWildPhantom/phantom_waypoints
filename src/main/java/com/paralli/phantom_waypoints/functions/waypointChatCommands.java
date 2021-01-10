@@ -196,6 +196,14 @@ public class waypointChatCommands implements CommandExecutor {
                 }
                 return true;
             }
+
+            if (args[0].equalsIgnoreCase("reveal")) {
+                if(player.isOp()){
+
+                } else {
+                    waypointFunctions.sendMessage(player,"This command is reserved for Operators only.");
+                }
+            }
             return true;
         }
     return false;
