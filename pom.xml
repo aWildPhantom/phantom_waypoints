@@ -6,7 +6,7 @@
 
     <groupId>com.paralli</groupId>
     <artifactId>phantom_waypoints</artifactId>
-    <version>0.1-Snap</version>
+    <version>1-Alpha</version>
 
     <build>
         <plugins>

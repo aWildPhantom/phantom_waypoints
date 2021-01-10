@@ -61,7 +61,7 @@ public class Main extends JavaPlugin {
 
         //Register commands
         try {
-            this.getCommand("waypoint").setExecutor(new waypointChatCommands());
+            this.getCommand("pwaypoint").setExecutor(new waypointChatCommands());
         } catch (Exception e) {
             console.info("An error has occurred while loading the required commands. \n"+"Please send the following to the plugin author:");
             e.printStackTrace();

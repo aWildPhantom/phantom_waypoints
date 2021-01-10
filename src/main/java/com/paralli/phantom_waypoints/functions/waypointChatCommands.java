@@ -35,9 +35,9 @@ public class waypointChatCommands implements CommandExecutor {
                     //if args is greater than 4, construct a singular string name for the waypoint
                     if(args.length >= 4) {
                         Main.console.info("Multi name detected! Building name...");
-                        for (int i = 1; i < args.length-2; i++) {
+                        for (int i = 1; i < args.length-1; i++) {
                             name.append(args[i]);
-                            if(i+1 < args.length){
+                            if(i+1 < args.length-1){
                                 name.append(" ");
                             }
                         }
