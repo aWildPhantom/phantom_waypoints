@@ -15,6 +15,21 @@ import java.util.List;
 
 public class waypointFunctions {
 
+    static void revealAll(Player p){
+        List<Player_waypoint> playerWaypoints = Main.globalPlayerData;
+
+        List<waypoint> waypoints = Main.globalWaypoints;
+
+        for(waypoint w : waypoints){
+            if(!(hasDiscovered(p,w))){
+                sendMessage(p, "adding "+w.name+" to "+p.getName()+"'s waypoint list");
+                waypointData.addNewPlayerWaypoint(p, w);
+            }
+        }
+
+
+    }
+
     static void sendTeleportMenu(Player p){
         TextComponent message = new TextComponent();
         message.addExtra(Tag.tag());

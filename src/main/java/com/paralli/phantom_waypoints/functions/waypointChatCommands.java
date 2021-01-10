@@ -1,6 +1,7 @@
 package com.paralli.phantom_waypoints.functions;
 
 import com.paralli.phantom_waypoints.Main;
+import com.paralli.phantom_waypoints.classes.Player_waypoint;
 import com.paralli.phantom_waypoints.classes.Tag;
 import com.paralli.phantom_waypoints.classes.waypoint;
 import com.paralli.phantom_waypoints.functions.waypointData;
@@ -199,7 +200,7 @@ public class waypointChatCommands implements CommandExecutor {
 
             if (args[0].equalsIgnoreCase("reveal")) {
                 if(player.isOp()){
-
+                    waypointFunctions.revealAll(player);
                 } else {
                     waypointFunctions.sendMessage(player,"This command is reserved for Operators only.");
                 }
