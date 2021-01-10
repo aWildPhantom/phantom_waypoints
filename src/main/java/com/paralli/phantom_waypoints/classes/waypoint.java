@@ -1,4 +1,4 @@
-package com.paralli.phantom_waypoints;
+package com.paralli.phantom_waypoints.classes;
 
 import org.bukkit.World;
 
@@ -9,7 +9,7 @@ public class waypoint implements Serializable {
     //Name of waypoint
     public String name;
 
-    //Whcih world the waypoint exists in
+    //Which world the waypoint exists in
     public String world;
 
     //Player Positioning
