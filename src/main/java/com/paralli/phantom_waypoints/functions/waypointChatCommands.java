@@ -67,7 +67,7 @@ public class waypointChatCommands implements CommandExecutor {
 
                         boolean cleared = false;
                         for(waypoint w: waypointList){
-                            Location wcheck = new Location(Bukkit.getServer().getWorld(w.name), w.x, w.y, w.z);
+                            Location wcheck = new Location(Bukkit.getServer().getWorld(w.world), w.x, w.y, w.z);
                             if(wcheck.distance(check) < 2){
                                 cleared = true;
                             }
