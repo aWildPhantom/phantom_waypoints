@@ -1,8 +1,13 @@
 package com.paralli.phantom_waypoints;
 
+import com.paralli.phantom_waypoints.classes.Player_waypoint;
+import com.paralli.phantom_waypoints.classes.waypoint;
+import com.paralli.phantom_waypoints.functions.handleMoveEvent;
+import com.paralli.phantom_waypoints.functions.waypointChatCommands;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 public class Main extends JavaPlugin {
@@ -11,10 +16,13 @@ public class Main extends JavaPlugin {
     public static Logger console;
     public static FileConfiguration config;
 
+    //keep instances of the waypoint data and the player data in ram since they wont be changed often and arent really that big.
+    public static List<waypoint> globalWaypoints;
+    public static List<Player_waypoint> globalPlayerData;
 
     @Override
     public void onEnable() {
-        this.console = getLogger();
+        console = getLogger();
         console.info("\n" +
                 "       ____  __                __                  \n" +
                 "      / __ \\/ /_  ____ _____  / /_____  ____ ___   \n" +
@@ -30,19 +38,38 @@ public class Main extends JavaPlugin {
 
 
         //add any needed stuff to init the waypoint system here.
+
+        //get data folder path;
         console.info("Grabbing data folder path...");
         getDataFolder().mkdir();
-        this.pluginPath = getDataFolder().getAbsolutePath();
+        pluginPath = getDataFolder().getAbsolutePath();
+
+        //load config
         console.info("Got it! Now to load the config file...");
         saveDefaultConfig();
-        this.config = this.getConfig();
-        console.info("Presto! Now for the commands...");
+        //set config variable so we can get it from other classes
+        config = this.getConfig();
+        console.info("Presto! Now to go ahead and read our waypoint list... ");
+        globalWaypoints = com.paralli.phantom_waypoints.functions.waypointData.readStoredJSON();
+        console.info("Okay. Just a few more steps...");
+        globalPlayerData = com.paralli.phantom_waypoints.functions.waypointData.readPlayerData();
+        console.info("Finishing final prep steps");
+
 
         //Register commands
         try {
-            this.getCommand("waypoint").setExecutor(new Command_waypoint());
+            this.getCommand("pwaypoint").setExecutor(new waypointChatCommands());
         } catch (Exception e) {
             console.info("An error has occurred while loading the required commands. \n"+"Please send the following to the plugin author:");
+            e.printStackTrace();
+            this.onDisable();
+        }
+
+        //register listener
+        try {
+            getServer().getPluginManager().registerEvents(new handleMoveEvent(), this);
+        } catch (Exception e) {
+            console.info("An error has occurred while registering listeners. \n"+"Please send the following to the plugin author:");
             e.printStackTrace();
             this.onDisable();
         }
