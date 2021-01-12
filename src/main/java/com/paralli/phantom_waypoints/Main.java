@@ -4,8 +4,10 @@ import com.paralli.phantom_waypoints.classes.Player_waypoint;
 import com.paralli.phantom_waypoints.classes.waypoint;
 import com.paralli.phantom_waypoints.functions.handleMoveEvent;
 import com.paralli.phantom_waypoints.functions.waypointChatCommands;
+import com.paralli.phantom_waypoints.functions.waypointData;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.List;
@@ -43,10 +45,8 @@ public class Main extends JavaPlugin {
         //get data folder path;
         console.info("Grabbing data folder path...");
 
-        if(!(getDataFolder().mkdir())){
-            console.info("Something went wrong creating our files!");
-            return;
-        }
+        getDataFolder().mkdir();
+
 
         pluginPath = getDataFolder().getAbsolutePath();
 
@@ -59,19 +59,18 @@ public class Main extends JavaPlugin {
         globalWaypoints = com.paralli.phantom_waypoints.functions.waypointData.readStoredJSON();
         console.info("Okay. Just a few more steps...");
         globalPlayerData = com.paralli.phantom_waypoints.functions.waypointData.readPlayerData();
-        console.info("Creating async tasks....");
+        console.info("Creating auto-save task....");
+
         //noinspection unused
-        BukkitTask autoSave = this.getServer().getScheduler().runTaskTimer(this,
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        console.info("Auto-Saving waypoint related data...");
-                        com.paralli.phantom_waypoints.functions.waypointData.saveWaypointData();
-                        com.paralli.phantom_waypoints.functions.waypointData.savePlayerWaypointData();
-                    }
-                },36000L, 36000L);
-
-
+        //Autosave function to help prevent unexpected data loss. This coupled with the saving during adding player data, we are double covered.
+        BukkitTask autoSave = new BukkitRunnable() {
+            public void run() {
+                console.info("Auto-Saving Waypoint related data...");
+                com.paralli.phantom_waypoints.functions.waypointData.saveWaypointData();
+                com.paralli.phantom_waypoints.functions.waypointData.savePlayerWaypointData();
+                console.info("Done!");
+            }
+        }.runTaskTimer(this, 6000, 12000 );
 
         console.info("Finishing final prep steps");
 
@@ -102,8 +101,6 @@ public class Main extends JavaPlugin {
         com.paralli.phantom_waypoints.functions.waypointData.savePlayerWaypointData();
         console.info("Saving waypoint data...");
         com.paralli.phantom_waypoints.functions.waypointData.saveWaypointData();
-        console.info("canceling our tasks....");
-        this.getServer().getScheduler().cancelTasks(this);
         console.info("All done! Bye now!");
     }
 }

@@ -18,7 +18,7 @@ import java.util.Scanner;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class waypointData {
-
+    //Create Data Files
     public static void createPlayerDataFile() {
         try {
             Main.console.info("No player data file was found. Creating default file now...");
@@ -47,6 +47,7 @@ public class waypointData {
         }
     }
 
+    //Read data files
     public static List<waypoint> readStoredJSON(){
         try {
             File file = new File(Main.pluginPath + File.separator + "waypointData.json");
@@ -101,6 +102,7 @@ public class waypointData {
         }
     }
 
+    //Save data files
     public static void saveWaypointData() {
         List<waypoint> waypointList = Main.globalWaypoints;
 
@@ -145,6 +147,35 @@ public class waypointData {
         }
     }
 
+    //Remove a player's discovered list
+    public static void purgePlayerData(Player p) {
+        List<Player_waypoint> player_waypoints = Main.globalPlayerData;
+
+        Player_waypoint pw = null;
+        int index = 0;
+
+        for(Player_waypoint gpw : player_waypoints) {
+            if(gpw.uuid.equals(p.getUniqueId())){
+                pw = gpw;
+                break;
+            }
+            index++;
+        }
+
+        if(pw == null){
+            Main.console.info("No player waypoint entry found. Creating entry.");
+            pw = new Player_waypoint();
+            pw.uuid = p.getUniqueId();
+            pw.waypointList = new ArrayList<>();
+            player_waypoints.add(pw);
+        } else {
+            pw.waypointList.clear();
+            player_waypoints.set(index, pw);
+        }
+        Main.globalPlayerData = player_waypoints;
+    }
+
+    //Add new waypoint to global list
     public static boolean addNewWaypoint(waypoint waypoint) {
         List<waypoint> waypointList = Main.globalWaypoints;
         waypointList.add(waypoint);
@@ -171,6 +202,7 @@ public class waypointData {
         }
     }
 
+    //Add new waypoint to player list
     public static void addNewPlayerWaypoint(Player p, waypoint waypoint) {
         List<Player_waypoint> player_waypoints = Main.globalPlayerData;
 
@@ -217,6 +249,7 @@ public class waypointData {
         }
     }
 
+    //Remove waypoint from both global and player lists
     public static int removeWaypoint(String name) {
         List<waypoint> waypoints = Main.globalWaypoints;
         List<Player_waypoint> pws = Main.globalPlayerData;
@@ -301,6 +334,7 @@ public class waypointData {
         return 0;
     }
 
+    //Check if waypoint exists
     public static boolean exists(waypoint waypoint){
         List<waypoint> waypoints = Main.globalWaypoints;
         for (waypoint value : waypoints) {

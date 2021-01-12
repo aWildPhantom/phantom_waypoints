@@ -18,6 +18,8 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
+import static org.bukkit.Bukkit.getOnlinePlayers;
+
 public class waypointChatCommands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
@@ -86,12 +88,12 @@ public class waypointChatCommands implements CommandExecutor {
                 }
             }
 
-            if(args[0].equalsIgnoreCase("add")){
+            if(args[0].equalsIgnoreCase("add")) {
 
                 if(!player.isOp()){
                     TextComponent message = new TextComponent("");
                     message.addExtra(Tag.tag());
-                    message.addExtra("This command is reserved for server operators only.");
+                    message.addExtra("This command is reserved for Operators only.");
                     player.spigot().sendMessage(message);
                     return true;
                 }
@@ -204,6 +206,29 @@ public class waypointChatCommands implements CommandExecutor {
                 } else {
                     waypointFunctions.sendMessage(player,"This command is reserved for Operators only.");
                 }
+            }
+
+            if(args[0].equalsIgnoreCase("purge")) {
+
+                //check if op
+                if(!(player.isOp())){
+                    waypointFunctions.sendMessage(player, "This command is reserved for Operators only!");
+                    return true;
+                }
+
+                //if player name is present, purge the given name
+                if(args.length > 2){
+                    String name = args[1];
+                    for(Player p : getOnlinePlayers()){
+                        if(args[1].equalsIgnoreCase(p.getDisplayName())){
+                            waypointData.purgePlayerData(p);
+                        }
+                    }
+                } else {
+                    waypointData.purgePlayerData(player);
+                }
+                waypointFunctions.sendMessage(player, "Waypoint data purged!");
+                return true;
             }
             return true;
         }
