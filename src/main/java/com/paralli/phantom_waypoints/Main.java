@@ -6,6 +6,7 @@ import com.paralli.phantom_waypoints.functions.handleMoveEvent;
 import com.paralli.phantom_waypoints.functions.waypointChatCommands;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -41,7 +42,12 @@ public class Main extends JavaPlugin {
 
         //get data folder path;
         console.info("Grabbing data folder path...");
-        getDataFolder().mkdir();
+
+        if(!(getDataFolder().mkdir())){
+            console.info("Something went wrong creating our files!");
+            return;
+        }
+
         pluginPath = getDataFolder().getAbsolutePath();
 
         //load config
@@ -53,6 +59,20 @@ public class Main extends JavaPlugin {
         globalWaypoints = com.paralli.phantom_waypoints.functions.waypointData.readStoredJSON();
         console.info("Okay. Just a few more steps...");
         globalPlayerData = com.paralli.phantom_waypoints.functions.waypointData.readPlayerData();
+        console.info("Creating async tasks....");
+        //noinspection unused
+        BukkitTask autoSave = this.getServer().getScheduler().runTaskTimer(this,
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        console.info("Auto-Saving waypoint related data...");
+                        com.paralli.phantom_waypoints.functions.waypointData.saveWaypointData();
+                        com.paralli.phantom_waypoints.functions.waypointData.savePlayerWaypointData();
+                    }
+                },36000L, 36000L);
+
+
+
         console.info("Finishing final prep steps");
 
 
@@ -82,6 +102,8 @@ public class Main extends JavaPlugin {
         com.paralli.phantom_waypoints.functions.waypointData.savePlayerWaypointData();
         console.info("Saving waypoint data...");
         com.paralli.phantom_waypoints.functions.waypointData.saveWaypointData();
+        console.info("canceling our tasks....");
+        this.getServer().getScheduler().cancelTasks(this);
         console.info("All done! Bye now!");
     }
 }
