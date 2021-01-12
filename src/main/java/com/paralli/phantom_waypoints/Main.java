@@ -78,8 +78,10 @@ public class Main extends JavaPlugin {
     }
 
     public void onDisable() {
-        console.info("Phantom Waypoints is shutting down! One second please... \n");
-        //add any needed shutdown procedures here
-        console.info("Done :)\n");
+        console.info("Time to close up the waypoints. Saving player data....");
+        com.paralli.phantom_waypoints.functions.waypointData.savePlayerWaypointData();
+        console.info("Saving waypoint data...");
+        com.paralli.phantom_waypoints.functions.waypointData.saveWaypointData();
+        console.info("All done! Bye now!");
     }
 }

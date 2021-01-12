@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class waypointData {
 
     public static void createPlayerDataFile() {
@@ -100,6 +101,50 @@ public class waypointData {
         }
     }
 
+    public static void saveWaypointData() {
+        List<waypoint> waypointList = Main.globalWaypoints;
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Type waypointListType = new TypeToken<ArrayList<waypoint>>(){}.getType();
+        String toWrite = gson.toJson(waypointList, waypointListType);
+
+        File file = new File(Main.pluginPath + File.separator + "waypointData.json");
+
+        if(!(file.exists())) {
+            waypointData.createWaypointDataFile();
+        }
+
+        try {
+            FileWriter writer = new FileWriter(Main.pluginPath + File.separator + "waypointData.json");
+            writer.write(toWrite);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void savePlayerWaypointData() {
+        List<Player_waypoint> waypointList = Main.globalPlayerData;
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Type waypointListType = new TypeToken<ArrayList<Player_waypoint>>(){}.getType();
+        String toWrite = gson.toJson(waypointList, waypointListType);
+
+        File file = new File(Main.pluginPath + File.separator + "playerWaypointData.json");
+
+        if(!(file.exists())) {
+            waypointData.createWaypointDataFile();
+        }
+
+        try {
+            FileWriter writer = new FileWriter(Main.pluginPath + File.separator + "playerWaypointData.json");
+            writer.write(toWrite);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static boolean addNewWaypoint(waypoint waypoint) {
         List<waypoint> waypointList = Main.globalWaypoints;
         waypointList.add(waypoint);
@@ -126,7 +171,7 @@ public class waypointData {
         }
     }
 
-    public static boolean addNewPlayerWaypoint(Player p,waypoint waypoint) {
+    public static void addNewPlayerWaypoint(Player p, waypoint waypoint) {
         List<Player_waypoint> player_waypoints = Main.globalPlayerData;
 
         Player_waypoint pw = null;
@@ -167,10 +212,8 @@ public class waypointData {
             FileWriter writer = new FileWriter(Main.pluginPath + File.separator + "playerWaypointData.json");
             writer.write(toWrite);
             writer.close();
-            return true;
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
