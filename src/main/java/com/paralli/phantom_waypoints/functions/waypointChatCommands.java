@@ -44,10 +44,10 @@ public class waypointChatCommands implements CommandExecutor {
                         name.append(args[1]);
                     }
 
-                    //if(!(args[args.length-1].equalsIgnoreCase("CrudeVerificationKek69"))){
-                    //    waypointFunctions.sendMessage(player, "Sorry, this command can't be used in chat. Please visit a waypoint.");
-                    //    return true;
-                    //}
+                    if(!(args[args.length-1].equalsIgnoreCase("CrudeVerificationKek69"))){
+                        waypointFunctions.sendMessage(player, "Sorry, this command can't be used in chat. Please visit a waypoint.");
+                        return true;
+                    }
 
 
                     //do the actual teleporting
