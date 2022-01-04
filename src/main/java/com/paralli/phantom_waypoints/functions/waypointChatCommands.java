@@ -44,12 +44,6 @@ public class waypointChatCommands implements CommandExecutor {
                         name.append(args[1]);
                     }
 
-                    if(!(args[args.length-1].equalsIgnoreCase("CrudeVerificationKek69"))){
-                        waypointFunctions.sendMessage(player, "Sorry, this command can't be used in chat. Please visit a waypoint.");
-                        return true;
-                    }
-
-
                     //do the actual teleporting
                     List<waypoint> waypointList = Main.globalWaypoints;
                     waypoint search = null;
@@ -69,6 +63,10 @@ public class waypointChatCommands implements CommandExecutor {
                         boolean cleared = false;
                         for(waypoint w: waypointList){
                             Location wcheck = new Location(Bukkit.getServer().getWorld(w.world), w.x, w.y, w.z);
+
+                            if(wcheck.getWorld() != check.getWorld()){
+                                continue;
+                            }
                             if(wcheck.distance(check) < 2){
                                 cleared = true;
                             }

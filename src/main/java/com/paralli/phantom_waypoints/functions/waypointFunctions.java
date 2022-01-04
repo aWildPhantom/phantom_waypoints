@@ -56,7 +56,7 @@ public class waypointFunctions {
             Link.setColor(ChatColor.GREEN);
             comp.addExtra(Link);
             comp.addExtra("]");
-            comp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/pwaypoint teleport " + value.name + " CrudeVerificationKek69"));
+            comp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/pwaypoint teleport " + value.name));
             message.addExtra(comp);
             message.addExtra(" ");
         }
