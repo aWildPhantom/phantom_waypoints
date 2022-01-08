@@ -23,7 +23,7 @@ public class pwaypoint implements CommandExecutor {
             //retrieve player that sent the command.
             Player player = (Player) commandSender;
 
-            //verifiy we have some form of arguments since this is a nested command.
+            //verify we have some form of arguments since this is a nested command.
             if(!(args.length > 0)){
                 return false;
             }
@@ -41,9 +41,8 @@ public class pwaypoint implements CommandExecutor {
             }
 
             if (args[0].equalsIgnoreCase("reveal")) {
-                reveal(player);
+                return reveal(player);
             }
-            return true;
         }
     return false;
     }

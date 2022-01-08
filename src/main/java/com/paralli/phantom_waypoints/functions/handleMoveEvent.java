@@ -4,6 +4,7 @@ import com.paralli.phantom_waypoints.Main;
 import com.paralli.phantom_waypoints.models.waypoint;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -20,12 +21,15 @@ public class handleMoveEvent implements Listener {
 
         List<waypoint> waypoints = Main.globalWaypoints;
 
-        int fx = moveEvent.getFrom().getBlockX();
-        int fy = moveEvent.getFrom().getBlockY();
-        int fz = moveEvent.getFrom().getBlockZ();
-        int tx = moveEvent.getTo().getBlockX();
-        int ty = moveEvent.getTo().getBlockY();
-        int tz = moveEvent.getTo().getBlockZ();
+        Block from = moveEvent.getFrom().getBlock();
+        Block to = moveEvent.getTo().getBlock();
+
+        int fx = from.getX();
+        int fy = from.getY();
+        int fz = from.getZ();
+        int tx = to.getX();
+        int ty = to.getY();
+        int tz = to.getZ();
 
         //check if the player has moved at least one block. Will stop the repeat firing of the events.
         if(fx == tx && fy == ty && fz == tz){
@@ -34,14 +38,14 @@ public class handleMoveEvent implements Listener {
 
 
         for(waypoint w : waypoints){
-            if(!(playerLoc.getWorld().equals(Bukkit.getServer().getWorld(w.world)))){
+            if(!(playerLoc.getWorld() == Bukkit.getServer().getWorld(w.world))){
                 continue;
             }
 
             Location loc =  new Location(Bukkit.getServer().getWorld(w.world), w.x, w.y, w.z);
 
-            if (playerLoc.distance(loc) < 1) {
-                if(moveEvent.getFrom().getBlockX()==loc.getBlockX() && moveEvent.getFrom().getBlockZ()==loc.getBlockZ()){
+            if (playerLoc.distance(loc) < 0.5) {
+                if(fx == loc.getBlockX() && fz == loc.getBlockZ()){
                     return;
                 }
                 entryPoint(moveEvent.getPlayer(), w);
