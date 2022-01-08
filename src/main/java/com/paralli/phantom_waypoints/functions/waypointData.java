@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.paralli.phantom_waypoints.Main;
-import com.paralli.phantom_waypoints.classes.Player_waypoint;
-import com.paralli.phantom_waypoints.classes.waypoint;
+import com.paralli.phantom_waypoints.models.Player_waypoint;
+import com.paralli.phantom_waypoints.models.waypoint;
 import org.bukkit.entity.Player;
 
 

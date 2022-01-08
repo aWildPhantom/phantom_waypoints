@@ -1,4 +1,4 @@
-package com.paralli.phantom_waypoints.classes;
+package com.paralli.phantom_waypoints.models;
 
 import java.io.Serializable;
 import java.util.List;

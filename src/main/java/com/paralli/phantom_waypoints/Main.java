@@ -1,9 +1,9 @@
 package com.paralli.phantom_waypoints;
 
-import com.paralli.phantom_waypoints.classes.Player_waypoint;
-import com.paralli.phantom_waypoints.classes.waypoint;
+import com.paralli.phantom_waypoints.models.Player_waypoint;
+import com.paralli.phantom_waypoints.models.waypoint;
 import com.paralli.phantom_waypoints.functions.handleMoveEvent;
-import com.paralli.phantom_waypoints.functions.waypointChatCommands;
+import com.paralli.phantom_waypoints.commands.pwaypoint;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -58,7 +58,7 @@ public class Main extends JavaPlugin {
 
         //Register commands
         try {
-            this.getCommand("pwaypoint").setExecutor(new waypointChatCommands());
+            this.getCommand("pwaypoint").setExecutor(new pwaypoint());
         } catch (Exception e) {
             console.info("An error has occurred while loading the required commands. \n"+"Please send the following to the plugin author:");
             e.printStackTrace();

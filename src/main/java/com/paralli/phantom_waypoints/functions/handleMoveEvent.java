@@ -1,7 +1,7 @@
 package com.paralli.phantom_waypoints.functions;
 
 import com.paralli.phantom_waypoints.Main;
-import com.paralli.phantom_waypoints.classes.waypoint;
+import com.paralli.phantom_waypoints.models.waypoint;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;

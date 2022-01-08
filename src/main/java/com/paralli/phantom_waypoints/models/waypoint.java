@@ -1,6 +1,4 @@
-package com.paralli.phantom_waypoints.classes;
-
-import org.bukkit.World;
+package com.paralli.phantom_waypoints.models;
 
 import java.io.Serializable;
 
