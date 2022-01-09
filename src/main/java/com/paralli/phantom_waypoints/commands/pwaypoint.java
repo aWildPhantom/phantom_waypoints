@@ -43,6 +43,10 @@ public class pwaypoint implements CommandExecutor {
             if (args[0].equalsIgnoreCase("reveal")) {
                 return reveal(player);
             }
+
+            if (args[0].equalsIgnoreCase("save")) {
+                return forceSave(player);
+            }
         }
     return false;
     }
@@ -222,6 +226,15 @@ public class pwaypoint implements CommandExecutor {
         } else {
             waypointFunctions.sendMessage(player,"This command is reserved for Operators only.");
         }
+        return true;
+    }
+
+    private boolean forceSave(Player player) {
+        if(waypointData.saveDataToFiles()){
+            player.sendMessage("Successfully force saved waypoint data.");
+            return true;
+        }
+        player.sendMessage("Something went wrong. Check console for more info.");
         return true;
     }
 }
