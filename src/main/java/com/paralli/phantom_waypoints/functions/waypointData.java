@@ -149,71 +149,14 @@ public class waypointData {
 
                 //Remove waypoint from player data
                 for(Player_waypoint pw: pws) {
-                    for(int g = 0; g < pw.waypointList.size(); g++){
-                        if(pw.waypointList.get(g).name.equalsIgnoreCase(name)){
+                    for (int g = 0; g < pw.waypointList.size(); g++) {
+                        if (pw.waypointList.get(g).name.equalsIgnoreCase(name)) {
                             pw.waypointList.remove(g);
+                            break;
                         }
                     }
                 }
-
-
-
-
-
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-                //waypoint list type
-                Type waypointListType = new TypeToken<ArrayList<waypoint>>(){}.getType();
-
-                //player data list type
-
-                Type playerDataType = new TypeToken<ArrayList<Player_waypoint>>(){}.getType();
-
-                //waypoint list string
-                String toWrite = gson.toJson(waypoints, waypointListType);
-
-                //Player data string
-                String pwToWrite = gson.toJson(pws, playerDataType);
-
-                //Write Waypoints
-                File file = new File(waypointDataPath);
-
-                if(!(file.exists())) {
-                    Main.console.info("Could not find waypointData.json!");
-                    return 0;
-                }
-
-                try {
-                    FileWriter writer = new FileWriter(waypointDataPath);
-                    writer.write(toWrite);
-                    writer.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return 2;
-                }
-
-                //Write Player Data;
-                File pfile = new File(playerDataPath);
-
-                if(!(pfile.exists())) {
-                    Main.console.info("Could not find playerWaypointData.json!");
-                    return 0;
-                }
-
-                try {
-                    FileWriter writer = new FileWriter(playerDataPath);
-                    writer.write(pwToWrite);
-                    writer.close();
-
-                    //Update global vars
-                    Main.globalWaypoints = waypoints;
-                    Main.globalPlayerData = pws;
-
-                    return 1;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return 2;
-                }
+                return 1;
             }
         }
         return 0;
