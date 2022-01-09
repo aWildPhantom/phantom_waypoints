@@ -8,6 +8,8 @@ import com.paralli.phantom_waypoints.commands.pwaypoint;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -23,6 +25,8 @@ public class Main extends JavaPlugin {
     //keep instances of the waypoint data and the player data in ram since they wont be changed often and arent really that big.
     public static List<waypoint> globalWaypoints;
     public static List<Player_waypoint> globalPlayerData;
+
+    private BukkitTask saveTask;
 
     @Override
     public void onEnable() {
@@ -59,10 +63,11 @@ public class Main extends JavaPlugin {
         globalPlayerData = com.paralli.phantom_waypoints.functions.waypointData.readPlayerData();
 
         //register a scheduled event to save waypoint data to files every 10 minutes
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-            @Override
-            public void run() {saveDataToFiles();}
-                }, 12000L, 12000L);
+        saveTask = new BukkitRunnable() {
+            public void run() {
+                waypointData.saveDataToFiles();
+            }
+        }.runTaskTimer(this, 12000L, 12000L);
 
 
         console.info("Finishing final prep steps");
@@ -91,6 +96,11 @@ public class Main extends JavaPlugin {
 
     public void onDisable() {
         console.info("Phantom Waypoints is shutting down! One second please... \n");
+
+        //release the scheduled task so we don't have any weird behavior later
+        saveTask.cancel();
+
+
         //add any needed shutdown procedures here
         console.info("Done :)\n");
     }
