@@ -32,20 +32,6 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         console = getLogger();
-        console.info("\n" +
-                "       ____  __                __                  \n" +
-                "      / __ \\/ /_  ____ _____  / /_____  ____ ___   \n" +
-                "     / /_/ / __ \\/ __ `/ __ \\/ __/ __ \\/ __ `__ \\  \n" +
-                "    / ____/ / / / /_/ / / / / /_/ /_/ / / / / / /  \n" +
-                " _ /_/   / / /_/\\__,_/_/ /_/\\__/\\____/_/ /_/_/_/   \n" +
-                "| |     / /___ ___  ______  ____  (_)___  / /______\n" +
-                "| | /| / / __ `/ / / / __ \\/ __ \\/ / __ \\/ __/ ___/\n" +
-                "| |/ |/ / /_/ / /_/ / /_/ / /_/ / / / / / /_(__  ) \n" +
-                "|__/|__/\\__,_/\\__, / .___/\\____/_/_/ /_/\\__/____/  \n" +
-                "             /____/_/                              \n" +
-                "Built by @aWildPhantom\n");
-
-
         //add any needed stuff to init the waypoint system here.
 
         //get data folder path;
@@ -96,7 +82,7 @@ public class Main extends JavaPlugin {
     }
 
     public void onDisable() {
-        console.info("Phantom Waypoints is shutting down! One second please... \n");
+        console.info("Phantom Waypoints is shutting down! One second please...");
 
         //release the scheduled task so we don't have any weird behavior later
         saveTask.cancel();
