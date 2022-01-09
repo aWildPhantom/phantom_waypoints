@@ -67,9 +67,8 @@ public class waypointData {
 
             Gson gson = new Gson();
             Type waypointListType = new TypeToken<ArrayList<waypoint>>(){}.getType();
-            List<waypoint> waypointList = gson.fromJson(content, waypointListType);
 
-            return waypointList;
+            return gson.fromJson(content, waypointListType);
         } catch (IOError | IOException e) {
             e.printStackTrace();
             return null;
@@ -94,9 +93,8 @@ public class waypointData {
 
             Gson gson = new Gson();
             Type waypointListType = new TypeToken<ArrayList<Player_waypoint>>(){}.getType();
-            List<Player_waypoint> playerWaypointList = gson.fromJson(content, waypointListType);
 
-            return playerWaypointList;
+            return gson.fromJson(content, waypointListType);
         } catch (IOError | IOException e) {
             e.printStackTrace();
             return null;
@@ -109,7 +107,7 @@ public class waypointData {
         return true;
     }
 
-    public static boolean addNewPlayerWaypoint(Player p,waypoint waypoint) {
+    public static void addNewPlayerWaypoint(Player p,waypoint waypoint) {
         List<Player_waypoint> player_waypoints = Main.globalPlayerData;
 
         Player_waypoint pw = null;
@@ -135,7 +133,6 @@ public class waypointData {
             player_waypoints.set(index, pw);
         }
         Main.globalPlayerData = player_waypoints;
-        return true;
     }
 
     public static int removeWaypoint(String name) {
