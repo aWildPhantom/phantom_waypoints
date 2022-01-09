@@ -129,12 +129,12 @@ public class pwaypoint implements CommandExecutor {
         }
 
     private boolean teleport(Player player, String[] args) {
-           if(args.length >= 3){
+           if(args.length >= 2){
                 StringBuilder name;
                 name = new StringBuilder();
 
                 //if args is greater than 4, construct a singular string name for the waypoint
-                if(args.length >= 4) {
+                if(args.length >= 3) {
                     for (int i = 1; i < args.length-1; i++) {
                         name.append(args[i]);
                         if(i+1 < args.length-1){
