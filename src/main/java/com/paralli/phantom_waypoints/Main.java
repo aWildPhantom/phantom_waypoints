@@ -102,9 +102,7 @@ public class Main extends JavaPlugin {
         saveTask.cancel();
 
         // save data to files
-        if(waypointData.saveDataToFiles()){
-            console.info("Saved data to files!");
-        }
+        waypointData.saveDataToFiles();
 
         //unregister moveEvent listenter
         HandlerList.unregisterAll(this);

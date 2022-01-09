@@ -219,7 +219,7 @@ public class waypointData {
             writer.write(toWrite);
             writer.close();
             Main.console.info("Saved waypoint data.");
-            Main.console.info("Done saving data :)");
+            Main.console.info("Done :)");
             return true;
         } catch (IOException e) {
             e.printStackTrace();
