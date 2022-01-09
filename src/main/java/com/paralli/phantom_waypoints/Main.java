@@ -1,14 +1,18 @@
 package com.paralli.phantom_waypoints;
 
+import com.paralli.phantom_waypoints.functions.waypointData;
 import com.paralli.phantom_waypoints.models.Player_waypoint;
 import com.paralli.phantom_waypoints.models.waypoint;
 import com.paralli.phantom_waypoints.functions.handleMoveEvent;
 import com.paralli.phantom_waypoints.commands.pwaypoint;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 import java.util.logging.Logger;
+
+import static com.paralli.phantom_waypoints.functions.waypointData.saveDataToFiles;
 
 public class Main extends JavaPlugin {
 
@@ -53,6 +57,14 @@ public class Main extends JavaPlugin {
         globalWaypoints = com.paralli.phantom_waypoints.functions.waypointData.readStoredJSON();
         console.info("Okay. Just a few more steps...");
         globalPlayerData = com.paralli.phantom_waypoints.functions.waypointData.readPlayerData();
+
+        //register a scheduled event to save waypoint data to files every 10 minutes
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {saveDataToFiles();}
+                }, 12000L, 12000L);
+
+
         console.info("Finishing final prep steps");
 
 
