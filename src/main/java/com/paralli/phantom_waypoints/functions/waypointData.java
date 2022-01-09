@@ -18,12 +18,15 @@ import java.util.Scanner;
 
 public class waypointData {
 
+    private static final String playerDataPath = Main.pluginPath + File.separator + "playerWaypointData.json";
+    private static final String waypointDataPath = Main.pluginPath + File.separator + "waypointData.json";
+
     public static void createPlayerDataFile() {
         try {
             Main.console.info("No player data file was found. Creating default file now...");
-            File file = new File(Main.pluginPath + File.separator + "playerWaypointData.json");
-            file.createNewFile();
-            FileWriter writer = new FileWriter(Main.pluginPath + File.separator + "playerWaypointData.json");
+            File file = new File(playerDataPath);
+            if(!file.createNewFile()) return;
+            FileWriter writer = new FileWriter(playerDataPath);
             writer.write("[]");
             writer.close();
             Main.console.info("Done.");
@@ -35,9 +38,9 @@ public class waypointData {
     public static void createWaypointDataFile() {
         try {
             Main.console.info("No waypoint data file was found. Creating default file now...");
-            File file = new File(Main.pluginPath + File.separator + "waypointData.json");
-            file.createNewFile();
-            FileWriter writer = new FileWriter(Main.pluginPath + File.separator + "waypointData.json");
+            File file = new File(waypointDataPath);
+            if(!file.createNewFile()) return;
+            FileWriter writer = new FileWriter(waypointDataPath);
             writer.write("[]");
             writer.close();
             Main.console.info("Done.");
@@ -48,7 +51,7 @@ public class waypointData {
 
     public static List<waypoint> readStoredJSON(){
         try {
-            File file = new File(Main.pluginPath + File.separator + "waypointData.json");
+            File file = new File(waypointDataPath);
 
             if (!file.exists()) {
                 waypointData.createWaypointDataFile();
@@ -75,7 +78,7 @@ public class waypointData {
 
     public static List<Player_waypoint> readPlayerData() {
         try {
-            File file = new File(Main.pluginPath + File.separator + "playerWaypointData.json");
+            File file = new File(playerDataPath);
 
             if (!file.exists()) {
                 waypointData.createPlayerDataFile();
@@ -103,27 +106,7 @@ public class waypointData {
     public static boolean addNewWaypoint(waypoint waypoint) {
         List<waypoint> waypointList = Main.globalWaypoints;
         waypointList.add(waypoint);
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Type waypointListType = new TypeToken<ArrayList<waypoint>>(){}.getType();
-        String toWrite = gson.toJson(waypointList, waypointListType);
-
-        File file = new File(Main.pluginPath + File.separator + "waypointData.json");
-        boolean exists = file.exists();
-
-        if(exists == false) {
-            waypointData.createWaypointDataFile();
-        }
-
-        try {
-            FileWriter writer = new FileWriter(Main.pluginPath + File.separator + "waypointData.json");
-            writer.write(toWrite);
-            writer.close();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+        return true;
     }
 
     public static boolean addNewPlayerWaypoint(Player p,waypoint waypoint) {
@@ -152,26 +135,7 @@ public class waypointData {
             player_waypoints.set(index, pw);
         }
         Main.globalPlayerData = player_waypoints;
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Type waypointListType = new TypeToken<ArrayList<Player_waypoint>>(){}.getType();
-        String toWrite = gson.toJson(player_waypoints, waypointListType);
-
-        File file = new File(Main.pluginPath + File.separator + "playerWaypointData.json");
-
-        if(!(file.exists())) {
-            waypointData.createWaypointDataFile();
-        }
-
-        try {
-            FileWriter writer = new FileWriter(Main.pluginPath + File.separator + "playerWaypointData.json");
-            writer.write(toWrite);
-            writer.close();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+        return true;
     }
 
     public static int removeWaypoint(String name) {
@@ -215,7 +179,7 @@ public class waypointData {
                 String pwToWrite = gson.toJson(pws, playerDataType);
 
                 //Write Waypoints
-                File file = new File(Main.pluginPath + File.separator + "waypointData.json");
+                File file = new File(waypointDataPath);
 
                 if(!(file.exists())) {
                     Main.console.info("Could not find waypointData.json!");
@@ -223,7 +187,7 @@ public class waypointData {
                 }
 
                 try {
-                    FileWriter writer = new FileWriter(Main.pluginPath + File.separator + "waypointData.json");
+                    FileWriter writer = new FileWriter(waypointDataPath);
                     writer.write(toWrite);
                     writer.close();
                 } catch (IOException e) {
@@ -232,7 +196,7 @@ public class waypointData {
                 }
 
                 //Write Player Data;
-                File pfile = new File(Main.pluginPath + File.separator + "playerWaypointData.json");
+                File pfile = new File(playerDataPath);
 
                 if(!(pfile.exists())) {
                     Main.console.info("Could not find playerWaypointData.json!");
@@ -240,7 +204,7 @@ public class waypointData {
                 }
 
                 try {
-                    FileWriter writer = new FileWriter(Main.pluginPath + File.separator + "playerWaypointData.json");
+                    FileWriter writer = new FileWriter(playerDataPath);
                     writer.write(pwToWrite);
                     writer.close();
 
@@ -267,4 +231,60 @@ public class waypointData {
         }
         return false;
     }
+
+    public static boolean saveDataToFiles() {
+        //this method will get called periodically by the save methods to save the data that is in memory to their files.
+        //having a separate method will allow us to save on the file write operations.
+
+        //Announce intentions in Server console
+        Main.console.info("Saving data...");
+
+        //save Player waypoint data
+
+        List<Player_waypoint> player_waypoints = Main.globalPlayerData;
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Type waypointListType = new TypeToken<ArrayList<Player_waypoint>>(){}.getType();
+        String toWrite = gson.toJson(player_waypoints, waypointListType);
+
+        File file = new File(playerDataPath);
+
+        if(!(file.exists())) {
+            waypointData.createWaypointDataFile();
+        }
+
+        try {
+            FileWriter writer = new FileWriter(playerDataPath);
+            writer.write(toWrite);
+            writer.close();
+            Main.console.info("Saved player waypoint data.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //save waypoints
+        List<waypoint> waypointList = Main.globalWaypoints;
+        waypointListType = new TypeToken<ArrayList<waypoint>>(){}.getType();
+        toWrite = gson.toJson(waypointList, waypointListType);
+
+        file = new File(waypointDataPath);
+        boolean exists = file.exists();
+
+        if(!exists) {
+            waypointData.createWaypointDataFile();
+        }
+
+        try {
+            FileWriter writer = new FileWriter(waypointDataPath);
+            writer.write(toWrite);
+            writer.close();
+            Main.console.info("Saved waypoint data.");
+            Main.console.info("Done saving data :)");
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
