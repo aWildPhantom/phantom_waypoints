@@ -1,21 +1,19 @@
 package com.paralli.phantom_waypoints.functions;
 
 import com.paralli.phantom_waypoints.Main;
-import com.paralli.phantom_waypoints.classes.Player_waypoint;
-import com.paralli.phantom_waypoints.classes.Tag;
-import com.paralli.phantom_waypoints.classes.waypoint;
+import com.paralli.phantom_waypoints.models.Player_waypoint;
+import com.paralli.phantom_waypoints.models.Tag;
+import com.paralli.phantom_waypoints.models.waypoint;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Location;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
 public class waypointFunctions {
 
-    static void revealAll(Player p){
+    public static void revealAll(Player p){
         List<Player_waypoint> playerWaypoints = Main.globalPlayerData;
 
         List<waypoint> waypoints = Main.globalWaypoints;
