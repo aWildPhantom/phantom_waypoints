@@ -135,9 +135,9 @@ public class pwaypoint implements CommandExecutor {
 
                 //if args is greater than 4, construct a singular string name for the waypoint
                 if(args.length >= 3) {
-                    for (int i = 1; i < args.length-1; i++) {
+                    for (int i = 1; i <= args.length-1; i++) {
                         name.append(args[i]);
-                        if(i+1 < args.length-1){
+                        if(i+1 <= args.length-1){
                             name.append(" ");
                         }
                     }
