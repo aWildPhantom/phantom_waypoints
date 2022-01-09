@@ -1,4 +1,4 @@
-package com.paralli.phantom_waypoints.classes;
+package com.paralli.phantom_waypoints.models;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
