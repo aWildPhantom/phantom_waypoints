@@ -6,4 +6,4 @@ author: aWildPhantom
 commands:
   pwaypoint:
     description: Access the waypoint menu
-    usages: "/waypoint <optional-either: tp | add> <optional: name>"
+    usages: "/pwaypoint <optional-either: tp | add> <optional: name>"
