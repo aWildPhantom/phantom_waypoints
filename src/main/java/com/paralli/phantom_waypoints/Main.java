@@ -7,6 +7,7 @@ import com.paralli.phantom_waypoints.functions.handleMoveEvent;
 import com.paralli.phantom_waypoints.commands.pwaypoint;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -100,6 +101,13 @@ public class Main extends JavaPlugin {
         //release the scheduled task so we don't have any weird behavior later
         saveTask.cancel();
 
+        // save data to files
+        if(waypointData.saveDataToFiles()){
+            console.info("Saved data to files!");
+        }
+
+        //unregister moveEvent listenter
+        HandlerList.unregisterAll(this);
 
         //add any needed shutdown procedures here
         console.info("Done :)\n");
