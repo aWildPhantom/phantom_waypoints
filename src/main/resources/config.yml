@@ -14,10 +14,8 @@
 
 ###### WAYPOINT TELEPORT CONFIG ######
 
-#Do the teleports to the waypoints need to cost Exp levels?
-teleportCostExp: True
+AutoSave: 30
+# ^ How often should the plugin save data from memory to file? In minutes.
 
-#How many levels do they need to cost?
-teleportCostAmmount: 1
 
 ######################################

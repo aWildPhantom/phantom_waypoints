@@ -49,12 +49,15 @@ public class Main extends JavaPlugin {
         console.info("Okay. Just a few more steps...");
         globalPlayerData = com.paralli.phantom_waypoints.functions.waypointData.readPlayerData();
 
+
+        long saveDelay = (long) this.getConfig().getInt("AutoSave") *60*20;
         //register a scheduled event to save waypoint data to files every 10 minutes
         saveTask = new BukkitRunnable() {
             public void run() {
                 waypointData.saveDataToFiles();
             }
-        }.runTaskTimer(this, 12000L, 12000L);
+        }.runTaskTimer(this, saveDelay, saveDelay);
+        //^ Above line pulls from config the default auto-save delay.
 
 
         console.info("Finishing final prep steps");
