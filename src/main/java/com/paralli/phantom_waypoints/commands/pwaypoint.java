@@ -17,6 +17,14 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class pwaypoint implements CommandExecutor {
+
+    private final int XPCost;
+
+    public pwaypoint() {
+        XPCost = Main.getPlugin().getConfig().getInt("ExpCost");
+    }
+
+
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
         if (commandSender instanceof Player) {
@@ -177,6 +185,13 @@ public class pwaypoint implements CommandExecutor {
                         waypointFunctions.sendMessage(player, "You can't teleport if you are not close to a waypoint!");
                         return true;
                     }
+
+                    //check for xp cost
+                    if(player.getLevel()-XPCost < 0) {
+                        waypointFunctions.sendMessage(player, "You don't have enough xp! It costs "+XPCost+" levels to teleport.");
+                        return true;
+                    }
+
 
                     player.playSound(loc, Sound.ENTITY_ENDERMAN_TELEPORT, 3.0F, 0.5F);
                     player.teleport(loc);
