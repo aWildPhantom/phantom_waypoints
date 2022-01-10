@@ -193,7 +193,7 @@ public class pwaypoint implements CommandExecutor {
                         return true;
                     }
 
-
+                    player.giveExpLevels(-1* XPCost);
                     player.playSound(loc, Sound.ENTITY_ENDERMAN_TELEPORT, 3.0F, 0.5F);
                     player.teleport(loc);
                     return true;
