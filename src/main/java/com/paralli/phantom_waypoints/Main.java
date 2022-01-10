@@ -22,6 +22,7 @@ public class Main extends JavaPlugin {
     public static String pluginPath;
     public static Logger console;
     public static FileConfiguration config;
+    public static Main instance;
 
     //keep instances of the waypoint data and the player data in ram since they wont be changed often and arent really that big.
     public static List<waypoint> globalWaypoints;
@@ -31,6 +32,9 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
+
+
         console = getLogger();
         //add any needed stuff to init the waypoint system here.
 
@@ -101,6 +105,6 @@ public class Main extends JavaPlugin {
     }
 
     public static Main getPlugin() {
-        return this;
+        return instance;
     }
 }

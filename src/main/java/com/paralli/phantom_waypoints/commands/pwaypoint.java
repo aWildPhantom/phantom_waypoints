@@ -21,7 +21,8 @@ public class pwaypoint implements CommandExecutor {
     private final int XPCost;
 
     public pwaypoint() {
-        XPCost = Main.getPlugin().getConfig().getInt("ExpCost");
+        Main plugin = Main.getPlugin();
+        XPCost = plugin.getConfig().getInt("ExpCost");
     }
 
 
