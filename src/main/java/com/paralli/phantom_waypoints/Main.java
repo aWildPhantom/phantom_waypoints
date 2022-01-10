@@ -99,4 +99,8 @@ public class Main extends JavaPlugin {
         //add any needed shutdown procedures here
         console.info("Done :)\n");
     }
+
+    public static Main getPlugin() {
+        return this;
+    }
 }
