@@ -17,5 +17,9 @@
 AutoSave: 30
 # ^ How often should the plugin save data from memory to file? In minutes.
 
+ExpCost: 0
+# ^ How many levels teleporting should cost. In levels.
 
+Tag: Phantom-Waypoints
+# ^ The tag that should be placed infront of the messages in chat.
 ######################################
