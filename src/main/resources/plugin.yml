@@ -7,3 +7,10 @@ commands:
   pwaypoint:
     description: Access the waypoint menu
     usages: "/pwaypoint <optional-either: tp | add> <optional: name>"
+
+permissions:
+  pwaypoint.*:
+    description: Gives access to all Pwaypoint commands
+    children:
+      pwaypoint.admin: true
+      pwaypoint.use: true

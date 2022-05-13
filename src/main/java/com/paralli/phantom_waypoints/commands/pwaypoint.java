@@ -61,13 +61,10 @@ public class pwaypoint implements CommandExecutor {
     }
 
     private boolean add(Player player, String[] args) {
-            if(!player.isOp()){
-                TextComponent message = new TextComponent("");
-                message.addExtra(Tag.tag());
-                message.addExtra("This command is reserved for server operators only.");
-                player.spigot().sendMessage(message);
-                return true;
-            }
+        if(!(player.hasPermission("pwaypoint.admin"))){
+            player.sendMessage("Nope");
+            return true;
+        }
 
             TextComponent message = new TextComponent("");
             message.addExtra(Tag.tag());
@@ -203,7 +200,7 @@ public class pwaypoint implements CommandExecutor {
     }
 
     private boolean remove(Player player, String[] args) {
-        if(!player.isOp()){
+        if(!player.hasPermission("pwaypoint.admin")){
             waypointFunctions.sendMessage(player, "This command is reserved for operators only!");
             return true;
         }
