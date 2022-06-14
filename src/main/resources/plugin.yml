@@ -1,16 +1,22 @@
 name: Phantom-Waypoints
-version: 1.1b
+version: 1.2a
 main: com.paralli.phantom_waypoints.Main
 api-version: 1.18
 author: aWildPhantom
 commands:
-  pwaypoint:
-    description: Access the waypoint menu
-    usages: "/pwaypoint <optional-either: tp | add> <optional: name>"
+  padmin:
+    description: Pwaypoint admin command
+    usage: /padmin <create | remove | reveal> <name>
 
 permissions:
   pwaypoint.*:
-    description: Gives access to all Pwaypoint commands
     children:
       pwaypoint.admin: true
       pwaypoint.use: true
+  pwaypoint.admin:
+    description: Allows modification of Pwaypoints
+
+  pwaypoint.use:
+    description: Allows usage of the Pwaypoints
+
+
