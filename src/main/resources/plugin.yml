@@ -1,10 +1,11 @@
 name: Phantom-Waypoints
-version: 1.1b
+version: 1.1c
 main: com.paralli.phantom_waypoints.Main
 api-version: 1.18
 author: aWildPhantom
 commands:
   pwaypoint:
+    permission: pwaypoint.use
     description: Access the waypoint menu
     usages: "/pwaypoint <optional-either: tp | add> <optional: name>"
 
