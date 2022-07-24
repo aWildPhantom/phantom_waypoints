@@ -234,15 +234,21 @@ public class pwaypoint implements CommandExecutor {
     }
 
     private boolean reveal(Player player) {
-        if(player.isOp()){
+        if(player.hasPermission("pwaypoint.admin")){
             waypointFunctions.revealAll(player);
         } else {
-            waypointFunctions.sendMessage(player,"This command is reserved for Operators only.");
+            waypointFunctions.sendMessage(player,"This command is reserved for Admins only.");
         }
         return true;
     }
 
     private boolean forceSave(Player player) {
+        if(!(player.hasPermission("pwaypoint.admin"))){
+            waypointFunctions.sendMessage(player,"This command is reserved for Admins only.");
+            return true;
+        }
+
+
         if(waypointData.saveDataToFiles()){
             player.sendMessage("Successfully force saved waypoint data.");
             return true;
